@@ -6,8 +6,9 @@
 #include "..\GUI\GUI.h"
 #include "..\Generic_DS\Queue.h"
 #include "..\Events\Event.h"
-
-
+#include"Motorcycle.h"
+#include "..\Generic_DS\PriorityQueue.h"
+#include "..\Generic_DS\List.h"
 #include "Order.h"
 
 // it is the maestro of the project
@@ -17,6 +18,33 @@ private:
 	GUI *pGUI;
 	Queue<Event*> EventsQueue;	//Queue of all events that will be loaded from file
 
+	Queue<Motorcycle*> FastMotorCycleA;
+	Queue<Motorcycle*> NormalMotorCycleA;
+	Queue<Motorcycle*> FrozenMotorCycleA;
+	Queue<Motorcycle*> FastMotorCycleB;
+	Queue<Motorcycle*> NormalMotorCycleB;
+	Queue<Motorcycle*> FrozenMotorCycleB;
+	Queue<Motorcycle*> FastMotorCycleC;
+	Queue<Motorcycle*> NormalMotorCycleC;
+	Queue<Motorcycle*> FrozenMotorCycleC;
+	Queue<Motorcycle*> FastMotorCycleD;
+	Queue<Motorcycle*> NormalMotorCycleD;
+	Queue<Motorcycle*> FrozenMotorCycleD;
+	
+	PriorityQueue<Order*> FrozenOrderA;
+	PriorityQueue<Order*> VIPOrderA;
+	PriorityQueue<Order*> NormalOrderA;
+	PriorityQueue<Order*> FrozenOrderB;
+	PriorityQueue<Order*> VIPOrderB;
+	PriorityQueue<Order*> NormalOrderB;
+	PriorityQueue<Order*> FrozenOrderC;
+	PriorityQueue<Order*> VIPOrderC;
+	PriorityQueue<Order*> NormalOrderC;
+	PriorityQueue<Order*> FrozenOrderD;
+	PriorityQueue<Order*> VIPOrderD;
+	PriorityQueue<Order*> NormalOrderD;
+
+	
 	
 	/// ==> 
 	//	DEMO-related members. Should be removed in phases 1&2
@@ -45,6 +73,12 @@ public:
 
 	//
 	// TODO: Add More Member Functions As Needed
+
+	void enqueueMotorCycle(Motorcycle*);//enqueue for motorcycles and orders
+	void ADDOrder(Order*);
+
+	void dequeueOrder();
+
 	//
 
 };

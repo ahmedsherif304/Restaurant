@@ -63,7 +63,96 @@ Restaurant::~Restaurant()
 }
 
 
+void Restaurant::enqueueMotorCycle(Motorcycle* m){
+	switch (m->getRegion()){
+	case A_REG:{
+		switch (m->getType()){
+		case TYPE_NRM:{NormalMotorCycleA.enqueue(m);break;}
+		case TYPE_VIP:{FastMotorCycleA.enqueue(m); break;}
+		case TYPE_FROZ:{FrozenMotorCycleA.enqueue(m); break;}
+		default:{break;}
+		}
+			   break;
+			   } 
+	case B_REG:{
+			   switch (m->getType()){
+		case TYPE_NRM:{NormalMotorCycleB.enqueue(m);break;}
+		case TYPE_VIP:{FastMotorCycleB.enqueue(m); break;}
+		case TYPE_FROZ:{FrozenMotorCycleB.enqueue(m); break;}
+		default:{break;}
+		
+			   break;
+			   }}
+	case C_REG:{
+			   switch (m->getType()){
+		case TYPE_NRM:{NormalMotorCycleC.enqueue(m);break;}
+		case TYPE_VIP:{FastMotorCycleC.enqueue(m); break;}
+		case TYPE_FROZ:{FrozenMotorCycleC.enqueue(m); break;}
+		default:{break;}
+		
+			   break;
+			   }}
+	case D_REG:{
+			   switch (m->getType()){
+		case TYPE_NRM:{NormalMotorCycleD.enqueue(m);break;}
+		case TYPE_VIP:{FastMotorCycleD.enqueue(m); break;}
+		case TYPE_FROZ:{FrozenMotorCycleD.enqueue(m); break;}
+		default:{break;}
+		
+			   break;
+			   }}
+	
+	default: {break;}
+	}
 
+}
+void Restaurant::ADDOrder(Order*O)
+{
+	switch (O->GetRegion()){
+	case A_REG:{
+		switch (O->GetType()){
+			case TYPE_NRM:{NormalOrderA.enqueue(O,O->getPriority());break;}
+			case TYPE_VIP:{VIPOrderA.enqueue(O,O->getPriority()); break;}
+			case TYPE_FROZ:{FrozenOrderA.enqueue(O,O->getPriority()); break;}
+			default:{break;}
+		}
+			   break;
+			   } 
+	case B_REG:{
+		switch (O->GetType()){
+			case TYPE_NRM:{NormalOrderB.enqueue(O,O->getPriority());break;}
+			case TYPE_VIP:{VIPOrderB.enqueue(O,O->getPriority()); break;}
+			case TYPE_FROZ:{FrozenOrderB.enqueue(O,O->getPriority()); break;}
+			default:{break;}
+		}
+			   break;
+			   }
+	case C_REG:{
+		switch (O->GetType()){
+			case TYPE_NRM:{NormalOrderC.enqueue(O,O->getPriority());break;}
+			case TYPE_VIP:{VIPOrderC.enqueue(O,O->getPriority()); break;}
+			case TYPE_FROZ:{FrozenOrderC.enqueue(O,O->getPriority()); break;}
+			default:{break;}
+			   break;
+			   }
+			   }
+	case D_REG:{
+		switch (O->GetType()){
+			case TYPE_NRM:{NormalOrderD.enqueue(O,O->getPriority());break;}
+			case TYPE_VIP:{VIPOrderD.enqueue(O,O->getPriority()); break;}
+			case TYPE_FROZ:{FrozenOrderD.enqueue(O,O->getPriority()); break;}
+			default:{break;}
+			   break;
+			   }
+			   }
+	default: {break;}
+	}
+
+}
+
+void Restaurant::dequeueOrder(){////// DON'T FORGET
+
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// ==> 

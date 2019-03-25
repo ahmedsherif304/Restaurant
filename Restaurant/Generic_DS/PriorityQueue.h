@@ -21,8 +21,8 @@ public :
 
 template <typename T>
 PriorityQueue<T>::PriorityQueue()
-{frontptr=nullptr;
-backptr=nullptr;
+{frontPtr=nullptr;
+backPtr=nullptr;
 }
 template <typename T>
 bool PriorityQueue<T>::isEmpty()const
@@ -33,25 +33,28 @@ bool PriorityQueue<T>::isEmpty()const
 }
 template <typename T>
 bool PriorityQueue<T>::enqueue(const T&newEntry,int Priority)
-{Node<T>New=new Node;
+{
+Node<T>*New=new Node<T>;
 New->setItem(newEntry);
 New->SetPriority(Priority);
 if (isEmpty())
-		frontPtr = newNodePtr; // The queue is empty
+		frontPtr = New; // The queue is empty
 else if(Priority>frontPtr->getPriority())//if true this should be inserted in the beginning of the Queue
 {New->setNext(frontPtr);
 frontPtr=New;
 }
 else//to insert in its place according to priority
 {
-	Node<T>SCN=frontPtr;
+	Node<T>*SCN=frontPtr;
 while(SCN->getPriority()>Priority)
 {if(SCN->getNext()==nullptr)break;
-SCN=SCN->getNext()
+SCN=SCN->getNext();
 }
 New->setNext(SCN->getNext());
-SCN->getNext(New);
+SCN->setNext(New);
+
 }
+return true;
 }
 template <typename T>
 bool PriorityQueue<T>::dequeue(T&frntEntry)

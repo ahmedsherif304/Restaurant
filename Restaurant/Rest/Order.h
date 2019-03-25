@@ -16,17 +16,17 @@ protected:
 
 	int ArrTime, ServTime, FinishTime;	//arrival, service start, and finish times
 	
-	
+	int Priority;
 	//
 	// TODO: Add More Data Members As Needed
 	//
 
 public:
-	Order(int ID, ORD_TYPE r_Type, REGION r_region);
+	Order(int ID, ORD_TYPE r_Type, REGION r_region,int dis,int at,int m);
 	virtual ~Order();
 
 	int GetID();
-
+	int getPriority();
 	int GetType() const;
 	REGION GetRegion() const;
 
