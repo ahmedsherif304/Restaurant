@@ -16,7 +16,7 @@ void Restaurant::RunSimulation()
 {
 	pGUI = new GUI;
 	PROG_MODE	mode = pGUI->getGUIMode();
-		
+	this->Read_Data();
 	switch (mode)	//Add a function for each mode in next phases
 	{
 	case MODE_INTR:
@@ -38,7 +38,7 @@ void Restaurant::Read_Data()
 	int EventCnt;	
 	Order* pOrd;
 	Event* pEv;
-	ifstream inFile ("test 1.txt");
+	ifstream inFile ("test1.txt");
 	if (!inFile.is_open())
 	{
 		pGUI->PrintMessage("File is not found");
