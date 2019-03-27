@@ -2,7 +2,7 @@
 #include <time.h>
 #include <iostream>
 using namespace std;
-
+#include <fstream>
 #include "Restaurant.h"
 #include "..\Events\ArrivalEvent.h"
 
@@ -33,7 +33,150 @@ void Restaurant::RunSimulation()
 }
 
 
+void Restaurant::Read_Data()
+{
+	int EventCnt;	
+	Order* pOrd;
+	Event* pEv;
+	ifstream inFile ("test 1.txt");
+	if (!inFile.is_open())
+	{
+		pGUI->PrintMessage("File is not found");
+		return;
+	}
+	//// read Motorcycles speed data and its count in each region
+	int SN, SF, SV;
+	inFile >> SN >> SF >> SV;
+	int MNA,MFA,MVA,MNB,MFB,MVB,MNC,MFC,MVC,MND,MFD,MVD;
+	inFile>> MNA >> MFA >> MVA;
+	inFile>> MNB >> MFB >> MVB;
+	inFile>> MNC >> MFC >> MVC;
+	inFile>> MND >> MFD >> MVD;
+	int prom;
+	inFile >> prom ;
+	inFile>> EventCnt;
+	int TS,TYP,ID,DST,MON;
+	char R,REG;	
+	// lazm assign el speed w 3dd el motorcycle abl ay 7aga
+	Event *E;
+	//// initialize them to NULL
+	//ea = eb = ec = ed = NULL;
+	//oa = ob = oc = od = NULL;
+	for(int i=0;i<EventCnt;i++)
+	{ 
+	inFile >> R;//new Event 3alashan tslem el order information w hnak han3mel new order w mts2lsh 3n el region hna eb3at el region 3ala tool
+	if(R == 'R')
+	{
+		inFile>>TS >> TYP >> ID >> DST >> MON >>REG ;
+		if (TYP == 'N')
+		{
+			switch (REG)
+			{
+				case 'A':
+					{E=new ArrivalEvent(ID,TYPE_NRM,A_REG,DST,TS,MON);
+					AddEvent(E);
+					break;}
+				case 'B':
+					{
+					E=new ArrivalEvent(ID,TYPE_NRM,B_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'C':
+					{
+					E=new ArrivalEvent(ID,TYPE_NRM,C_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'D':
+					{
+					E=new ArrivalEvent(ID,TYPE_NRM,D_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+			}
+		}
+		else 
+		{
+			if(TYP == 'F')
+			{
+			switch (REG)
+			{
+				case 'A':
+					{
+					E=new ArrivalEvent(ID,TYPE_FROZ,A_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'B':
+					{
+					E=new ArrivalEvent(ID,TYPE_FROZ,B_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'C':
+					{
+					E=new ArrivalEvent(ID,TYPE_FROZ,C_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'D':
+					{
+					E=new ArrivalEvent(ID,TYPE_FROZ,D_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+			}
+			}
+			else
+			{
+				if(TYP == 'V')
+				{
+					switch (REG)
+					{
+				case 'A':
+					{
+					E=new ArrivalEvent(ID,TYPE_VIP,A_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'B':
+					{
+					E=new ArrivalEvent(ID,TYPE_VIP,B_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'C':
+					{
+					E=new ArrivalEvent(ID,TYPE_VIP,C_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+				case 'D':
+					{
+					E=new ArrivalEvent(ID,TYPE_VIP,D_REG,DST,TS,MON);
+					AddEvent(E);
+					break;
+					}
+					}
+				}
+			}
+		}
+	}
+	else
+		if(R == 'X')
+		{
+			inFile>> TS >> ID;
+			//ea->
+		}
+		else
+		{
+			inFile>> TS >> ID >> MON;
 
+		}
+
+}
+}
 //////////////////////////////////  Event handling functions   /////////////////////////////
 void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
 {
