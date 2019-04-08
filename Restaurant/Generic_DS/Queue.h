@@ -48,7 +48,7 @@ template <typename T>
 class Queue
 {
 private :
-	
+	int count;
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
 public :
@@ -57,6 +57,7 @@ public :
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;	
+	int GetCount();
 	~Queue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -70,6 +71,7 @@ The constructor of the Queue class.
 template <typename T>
 Queue<T>::Queue()
 {
+	count=0;
 	backPtr=nullptr;
 	frontPtr=nullptr;
 
@@ -100,6 +102,8 @@ Adds newEntry at the back of this queue.
 Input: newEntry .
 Output: True if the operation is successful; otherwise false.
 */
+template<typename T>
+	int Queue<T> ::GetCount(){return count;}
 
 template <typename T>
 bool Queue<T>::enqueue( const T& newEntry)
@@ -111,6 +115,7 @@ bool Queue<T>::enqueue( const T& newEntry)
 	else
 		backPtr->setNext(newNodePtr); // The queue was not empty
 	backPtr = newNodePtr; // New node is at back
+	count++;
 	return true ;
 } // end enqueue
 
@@ -141,7 +146,7 @@ bool Queue<T>:: dequeue(T& frntEntry)
 	// Free memory reserved by the dequeued node
 	delete nodeToDeletePtr;
 
-
+	count--;
 	return true;
 
 }

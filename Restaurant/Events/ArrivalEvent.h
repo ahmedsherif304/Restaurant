@@ -13,10 +13,10 @@ class ArrivalEvent: public Event
 	REGION OrdRegion;  //Region of this order	                
 	double OrdMoney;	//Total order money
 public:
-	ArrivalEvent( int oID, ORD_TYPE oType, REGION reg,int ,int,int);
+	ArrivalEvent( int oID, ORD_TYPE oType, int reg,int ,int,int);
 	//Add more constructors if needed
 	
-	virtual void Execute(Restaurant *pRest);	//override execute function
+	virtual Order* Execute(Restaurant *pRest);	//override execute function
 
 };
 

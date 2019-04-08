@@ -230,7 +230,18 @@ void GUI::AddOrderForDrawing(Order* ptr)
 	// It only makes the first free pointer in the array
 	// points to the same Order pointed to by "ptr"
 }
-
+void GUI::RemoveOrder(Order* pOrd){
+	int i=0;
+	for (i;i<OrderCount;i++){
+		if (pOrd==OrdListForDrawing[i])
+			break;
+	}
+	for (int j=i;j<OrderCount-1;j++)
+	{
+		OrdListForDrawing[j]=OrdListForDrawing[j+1];
+	}
+	OrderCount--;
+}
 void GUI::ResetDrawingList()
 {
 	OrderCount = 0;		//resets the orders count to be ready for next timestep updates
