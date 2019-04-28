@@ -18,5 +18,6 @@ Order* ArrivalEvent::Execute(Restaurant* pRest)
 	Order* pOrd = new Order(OrderID,OrdType,OrdRegion,OrdDistance,EventTime,OrdMoney);
 	pRest->ADDOrder(pOrd);
 	return pOrd;
-	pOrd=NULL;
+	
 }
+ArrivalEvent::~ArrivalEvent(){}

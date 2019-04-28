@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 using namespace std;
-#define Max 100
+#define Max 40
 template <typename T>
 class List
 {

@@ -17,7 +17,7 @@ public:
 	//Add more constructors if needed
 	
 	virtual Order* Execute(Restaurant *pRest);	//override execute function
-
+	~ArrivalEvent();
 };
 
 #endif

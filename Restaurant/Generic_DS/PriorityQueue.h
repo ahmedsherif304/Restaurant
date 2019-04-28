@@ -17,9 +17,21 @@ public :
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;
 	int GetCount();
+	void clear();
 	~PriorityQueue();
 };
-
+template <typename T>
+void PriorityQueue<T>::clear()
+{
+	Node<T>*Temp=frontPtr;
+	while(!isEmpty())
+	{
+		frontPtr=frontPtr->getNext();
+		delete Temp;
+		Temp=NULL;
+		Temp=frontPtr;
+	}
+}
 template <typename T>
 PriorityQueue<T>::PriorityQueue():count(0)
 {frontPtr=nullptr;
@@ -52,17 +64,17 @@ frontPtr=New;
 else//to insert in its place according to priority
 {
 	Node<T>*SCN=frontPtr;
-while(SCN->getPriority()>Priority)
-{if(SCN->getNext()==nullptr)break;
-SCN=SCN->getNext();
+	while(SCN->getNext()!=nullptr&&SCN->getNext()->getPriority()>=Priority)
+{
+	SCN=SCN->getNext();
 }
 New->setNext(SCN->getNext());
 SCN->setNext(New);
-
 }
 count++;
 return true;
 }
+
 template <typename T>
 bool PriorityQueue<T>::dequeue(T&frntEntry)
 {if(isEmpty())return false;
@@ -88,4 +100,5 @@ return true;
 template <typename T>
 PriorityQueue<T>::~PriorityQueue()
 {
+	clear();
 }

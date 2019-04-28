@@ -18,6 +18,8 @@ int Motorcycle::getSpeed(){return speed;}
 REGION Motorcycle::getRegion(){return region;}
 STATUS Motorcycle::setStatus(){return status;}
 ORD_TYPE Motorcycle::getType(){return type;}
+void Motorcycle:: setReturnTime(int t){ReturnTime=t;}
+int Motorcycle:: getReturnTime(){return ReturnTime;}
 Motorcycle::~Motorcycle()
 {
 }

@@ -58,6 +58,7 @@ public :
 	bool dequeue(T& frntEntry);  
 	bool peekFront(T& frntEntry)  const;	
 	int GetCount();
+	void clear();
 	~Queue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -67,7 +68,18 @@ Function: Queue()
 The constructor of the Queue class.
 
 */
-
+template <typename T>
+void Queue<T>::clear()
+{
+	Node<T>*Temp=frontPtr;
+	while(!isEmpty())
+	{
+		frontPtr=frontPtr->getNext();
+		delete Temp;
+		Temp=NULL;
+		Temp=frontPtr;
+	}
+}
 template <typename T>
 Queue<T>::Queue()
 {
@@ -165,7 +177,10 @@ template <typename T>
 bool Queue<T>:: peekFront(T& frntEntry) const 
 {
 	if(isEmpty())
+	{
+		frntEntry=NULL;
 		return false;
+	}
 
 	frntEntry = frontPtr->getItem();
 	return true;
@@ -176,5 +191,6 @@ bool Queue<T>:: peekFront(T& frntEntry) const
 template <typename T>
 Queue<T>::~Queue()
 {
+	clear();
 }
 #endif

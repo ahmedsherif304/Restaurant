@@ -17,6 +17,7 @@ protected:
 	int ArrTime, ServTime, FinishTime;	//arrival, service start, and finish times
 	
 	int Priority;
+	int AutoProm;
 	//
 	// TODO: Add More Data Members As Needed
 	//
@@ -28,8 +29,11 @@ public:
 	int GetID();
 	int getPriority();
 	int GetType() const;
+	void setTypeVIP();
 	REGION GetRegion() const;
-
+	int GetTime();
+	void setMoney(int);
+	int getMoney();
 	void SetDistance(int d);
 	int GetDistance() const;
 
