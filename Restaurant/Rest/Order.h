@@ -36,7 +36,6 @@ public:
 	int getMoney();
 	void SetDistance(int d);
 	int GetDistance() const;
-
 	//
 	// TODO: Add More Member Functions As Needed
 	//

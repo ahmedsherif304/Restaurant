@@ -253,27 +253,34 @@ void Restaurant::PromoteOrder(int ts,int id,int m){
 	Order* order=ReturnOrder(id);
 	if (order!=NULL){
 		pGUI->RemoveOrder(order);
-		CancelFromOrders(id);
 		pGUI->UpdateInterface();
+		if(!Orders.isEmpty())
+			CancelFromOrders(id);
+		else if(!InActive.isEmpty())
+			CancelFromInActive(id);
 	}
 	Order*pOrd;
 	if (order!=NULL)
 		{
 		order->setMoney(order->getMoney()+m);
 		order->setTypeVIP();
+		ADDOrder(order);
 		if(!Orders.isEmpty())
 			Orders.enqueue(order,order->getPriority());
-		ADDOrder(order);
+		else if(!InActive.isEmpty())
+			InActive.enqueue(order,order->getPriority());
 	}
+	if(Orders.isEmpty())
+		return;
 	Queue<Order*>Q;
 	pGUI->ResetDrawingList();
-	for(int i=0;i<Orders.GetCount();i++)
+	while(!Orders.isEmpty())
 	{
 		Orders.dequeue(pOrd);
 		pGUI->AddOrderForDrawing(pOrd);
-		pGUI->UpdateInterface();
 		Q.enqueue(pOrd);
 	}
+		pGUI->UpdateInterface();
 	while(!Q.isEmpty())
 	{
 		Q.dequeue(pOrd);
@@ -287,7 +294,7 @@ void Restaurant::AutoPromote(int CurrentTimeStep){
 	while  (pOrd!=NULL)
 	{
 		if ((pOrd->GetTime()+Prom)==CurrentTimeStep)
-			{PromoteOrder(pOrd->GetTime(),pOrd->GetID(),0);
+			{PromoteOrder(pOrd->GetTime(),pOrd->GetID(),100);
 		NormalOrderA.peekFront(pOrd);}
 		else break;
 	}
