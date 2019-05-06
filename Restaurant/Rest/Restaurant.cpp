@@ -36,7 +36,6 @@ void Restaurant::Read_Data()
 	//// read Motorcycles speed data and its count in each region
 	int SN, SF, SV;
 	inFile >> SN >> SF >> SV;
-	int MNA,MFA,MVA,MNB,MFB,MVB,MNC,MFC,MVC,MND,MFD,MVD;
 	inFile>> MNA >> MFA >> MVA;
 	inFile>> MNB >> MFB >> MVB;
 	inFile>> MNC >> MFC >> MVC;
@@ -157,6 +156,7 @@ void Restaurant::Read_Data()
 		}
 
 }
+	inFile.close();
 }
 //////////////////////////////////  Event handling functions   /////////////////////////////
 void Restaurant::AddEvent(Event* pE)	//adds a new event to the queue of events
@@ -694,7 +694,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else  if(!FrozenOrderA.isEmpty() && !FrozenMotorCycleA.isEmpty())
 	{
@@ -703,9 +705,11 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 		FrozenMotorCycleA.dequeue(Mot);
 		Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 		OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
-		CancelFromOrders(pOrd->GetID());//h
+		CancelFromOrders(pOrd->GetID());
 		pGUI->RemoveOrder(pOrd);
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else if(!NormalOrderA.isEmpty()&& (!NormalMotorCycleA.isEmpty()||!FastMotorCycleA.isEmpty()))
 	{
@@ -724,7 +728,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 
 	//Region B
@@ -750,7 +756,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else  if(!FrozenOrderB.isEmpty() && !FrozenMotorCycleB.isEmpty())
 	{
@@ -761,7 +769,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			FrozenMotorCycleB.dequeue(Mot);
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
-			delete pOrd;
+			pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+			pOrd->setServTime(Mot->getReturnTime()/2);
+			SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else if(!NormalOrderB.isEmpty()&& (!NormalMotorCycleB.isEmpty()||!FastMotorCycleB.isEmpty()))
 	{
@@ -780,8 +790,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	//Region C
 	if(!VIPOrderC.isEmpty()&&(!FastMotorCycleC.isEmpty()||!NormalMotorCycleC.isEmpty()||!FrozenMotorCycleC.isEmpty()))
@@ -806,7 +817,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else  if(!FrozenOrderC.isEmpty() && !FrozenMotorCycleC.isEmpty())
 	{
@@ -816,7 +829,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			FrozenMotorCycleC.dequeue(Mot);
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else if(!NormalOrderC.isEmpty()&& (!NormalMotorCycleC.isEmpty()||!FastMotorCycleC.isEmpty()))
 	{
@@ -835,8 +850,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	//Regioon D
 	if(!VIPOrderD.isEmpty()&&(!FastMotorCycleD.isEmpty()||!NormalMotorCycleD.isEmpty()||!FrozenMotorCycleD.isEmpty()))
@@ -861,7 +877,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else  if(!FrozenOrderD.isEmpty() && !FrozenMotorCycleD.isEmpty())
 	{
@@ -871,7 +889,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 		FrozenMotorCycleD.dequeue(Mot);
 		Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 		OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 	else if(!NormalOrderD.isEmpty()&& (!NormalMotorCycleD.isEmpty()||!FastMotorCycleD.isEmpty()))
 	{
@@ -890,8 +910,9 @@ void Restaurant::assign(int TimeStep){//like assigning to motorcycle but every t
 			Mot->setReturnTime(TimeStep+2*pOrd->GetDistance()/Mot->getSpeed());
 			OutMotorCycles.enqueue(Mot,-Mot->getReturnTime());
 		}
-		
-		delete pOrd;
+		pOrd->setWaitTime(TimeStep - pOrd->GetTime());
+		pOrd->setServTime(Mot->getReturnTime()/2);
+		SaveFile.enqueue(pOrd,-(pOrd->GetTime()+pOrd->getServTime()+pOrd->getWaitTime()));
 	}
 }
 void Restaurant::returnMotorCycle(int TimeStep){
@@ -924,9 +945,7 @@ void Restaurant::Interactive()
 	{
 		Print(CurrentTimeStep);
 		//ExecuteEvents(CurrentTimeStep);	//execute all events at current time step
-		//The above line may add new Orders to the DEMO_Queue
 		pOrd=ExecuteEvents(CurrentTimeStep);
-		//Let's draw all arrived Orders by passing them to the GUI to draw
 		while(pOrd)
 		{
 			Print(CurrentTimeStep);
@@ -940,9 +959,8 @@ void Restaurant::Interactive()
 			InActive.dequeue(pOrd);
 			Orders.enqueue(pOrd,pOrd->getPriority());
 			pGUI->AddOrderForDrawing(pOrd);
-			pGUI->UpdateInterface();
 		}
-		
+		pGUI->UpdateInterface();
 		//Region A
 		while((!FastMotorCycleA.isEmpty() || !NormalMotorCycleA.isEmpty() || !FrozenMotorCycleA.isEmpty())&& !VIPOrderA.isEmpty() &&!Orders.isEmpty())
 		{
@@ -1018,17 +1036,113 @@ void Restaurant::Interactive()
 			pGUI->waitForClick();
 		else if(Mode==MODE_STEP)
 			Sleep(1000);
-	CurrentTimeStep++;	//advance timestep
+		CurrentTimeStep++;	//advance timestep
 	
-	returnMotorCycle(CurrentTimeStep);
-	pGUI->UpdateInterface();
+		returnMotorCycle(CurrentTimeStep);
+		pGUI->UpdateInterface();
+		}
+		Output_File();
+		if (Mode!=MODE_SLNT)
+		{
+			Print(CurrentTimeStep);
+			Sleep(5000);
+			pGUI->PrintMessage("Done");
+			if(Mode==MODE_INTR)
+					pGUI->waitForClick();
+			else if(Mode==MODE_STEP)
+					Sleep(1000);
+		}
+}
+void Restaurant::Output_File(){
+	ofstream output;
+	Order * O;
+	int FT;
+	int AN=0,AF=0,AV=0,BN=0,BF=0,BV=0,CN=0,CF=0,CV=0,DN=0,DF=0,DV=0;
+	float SWA=0,SWB=0,SWC=0,SWD=0,SSA=0,SSB=0,SSC=0,SSD=0;
+	output.open("OUTPUT.txt");
+	output<<"FT  ID  AT  WT  ST\n";
+	while (!SaveFile.isEmpty())
+	{
+		SaveFile.dequeue(O);
+		FT=O->getServTime()+O->GetTime()+O->getWaitTime();
+		output<<FT<<"   "<<O->GetID()<<"   "<<O->GetTime()<<"   "<<O->getWaitTime()<<"   "<<O->getServTime()<<endl;
+
+
+
+		switch (O->GetRegion()){
+	case A_REG:{
+		SWA+=O->getWaitTime();
+		SSA+=O->getServTime();
+		switch (O->GetType()){
+			case TYPE_NRM:{AN++; break;}
+			case TYPE_VIP:{AV++; break;}
+			case TYPE_FROZ:{AF++; break;}
+			default:{break;}
+		}
+			   break;
+			   } 
+	case B_REG:{
+		SWB+=O->getWaitTime();
+		SSB+=O->getServTime();
+		switch (O->GetType()){
+			case TYPE_NRM:{BN++;break;}
+			case TYPE_VIP:{BV++; break;}
+			case TYPE_FROZ:{BF++; break;}
+			default:{break;}
+			}
+			   break;
+			   }
+	case C_REG:{
+		SWC+=O->getWaitTime();
+		SSC+=O->getServTime();
+		switch (O->GetType()){
+			case TYPE_NRM:{CN++;break;}
+			case TYPE_VIP:{CV++; break;}
+			case TYPE_FROZ:{CF++; break;}
+			default:{break;}
+		}
+			   break;
+			   }
+	case D_REG:{
+		SWD+=O->getWaitTime();
+		SSD+=O->getServTime();
+		switch (O->GetType()){
+			case TYPE_NRM:{DN++;break;}
+			case TYPE_VIP:{DV++; break;}
+			case TYPE_FROZ:{DF++; break;}
+			default:{break;}
+		}
+			   break;
+			   }
+	default: {break;}
 	}
-	Print(CurrentTimeStep);
-	Sleep(5000);
-	pGUI->PrintMessage("Done");
-	if(Mode==MODE_INTR)
-			pGUI->waitForClick();
-		else if(Mode==MODE_STEP)
-			Sleep(1000);
+
+
+
+
+
+	}
+	float num=15.6;
+	//Region A
+	output<<"Region A:\n	Orders: "<<AN+AF+AV<<" [Norm:"<<AN<<", Froz:"<<AF<<", VIP:"<<AV<<"]\n";
+	output<<"	MotorC: "<<MNA+MFA+MVA<<"  [Norm:"<<MNA<<", Froz:"<<MFA<<", VIP:"<<MVA<<"]\n";
+	output<<"	AVG Wait = "<<SWA/(AN+AF+AV)<<", AVG Serve = "<<SSA/(AN+AF+AV)<<endl<<endl;
+
+	//Region B
+	output<<"Region B:\n	Orders: "<<BN+BF+BV<<" [Norm:"<<BN<<", Froz:"<<BF<<", VIP:"<<BV<<"]\n";
+	output<<"	MotorC: "<<MNB+MFB+MVB<<"  [Norm:"<<MNB<<", Froz:"<<MFB<<", VIP:"<<MVB<<"]\n";
+	output<<"	AVG Wait = "<<SWB/(BN+BF+BV)<<", AVG Serve = "<<SSB/(BN+BF+BV)<<endl<<endl;
+
+	//Region C
+	output<<"Region C:\n	Orders: "<<CN+CF+CV<<" [Norm:"<<CN<<", Froz:"<<CF<<", VIP:"<<CV<<"]\n";
+	output<<"	MotorC: "<<MNC+MFC+MVC<<"  [Norm:"<<MNC<<", Froz:"<<MFC<<", VIP:"<<MVC<<"]\n";
+	output<<"	AVG Wait = "<<SWC/(CN+CF+CV)<<", AVG Serve = "<<SSC/(CN+CF+CV)<<endl<<endl;
+
+	//Region D
+	output<<"Region D:\n	Orders: "<<DN+DF+DV<<" [Norm:"<<DN<<", Froz:"<<DF<<", VIP:"<<DV<<"]\n";
+	output<<"	MotorC: "<<MND+MFD+MVD<<"  [Norm:"<<MND<<", Froz:"<<MFD<<", VIP:"<<MVD<<"]\n";
+	output<<"	AVG Wait = "<<SWD/(DN+DF+DV)<<", AVG Serve = "<<SSD/(DN+DF+DV)<<endl<<endl;
+
+	output.close();
 }
 

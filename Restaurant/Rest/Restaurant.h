@@ -45,7 +45,10 @@ PriorityQueue<Order*>    VIPOrderA;
 	Queue<Order*>          NormalOrderD;
 	PriorityQueue<Motorcycle*> OutMotorCycles;
 	PriorityQueue<Order*>Orders;
+	PriorityQueue<Order*> SaveFile;
 	int Prom;
+
+	int MNA,MFA,MVA,MNB,MFB,MVB,MNC,MFC,MVC,MND,MFD,MVD;
 public:
 	
 	Restaurant();
@@ -54,6 +57,7 @@ public:
 	Order* ExecuteEvents(int TimeStep);	//executes all events at current timestep
 	void RunSimulation();
 	void Read_Data();
+	void Output_File();
 	Order* CancelOrder(int ,int);
 	void PromoteOrder(int,int,int);
 	void AutoPromote(int);

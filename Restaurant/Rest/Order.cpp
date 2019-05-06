@@ -57,3 +57,11 @@ void Order::setTypeVIP(){
 	Priority=abs(3*totalMoney-2*ArrTime-Distance);
 	type=TYPE_VIP;
 }
+void Order::setServTime(int x){
+	ServTime=x;
+}
+void Order::setWaitTime(int x){
+	WaitTime=x;
+}
+int  Order::getServTime(){return ServTime;}
+int  Order::getWaitTime(){return WaitTime;}
