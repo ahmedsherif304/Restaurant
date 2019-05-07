@@ -27,7 +27,7 @@ void Restaurant::Read_Data()
 	int EventCnt;	
 	Order* pOrd;
 	Event* pEv;
-	ifstream inFile ("test 1.txt");
+	ifstream inFile ("test3.txt");
 	if (!inFile.is_open())
 	{
 		pGUI->PrintMessage("File is not found");
@@ -44,68 +44,68 @@ void Restaurant::Read_Data()
 	for(int i=0;i<MFA;i++)
 	{
 		MOt=new Motorcycle(A_REG,TYPE_FROZ,i+1,SF);
-		FrozenMotorCycleA.enqueue(MOt,SF);
+		FrozenMotorCycleA.enqueue(MOt,SF+5*i);
 	}
 	for(int i=0;i<MNA;i++)
 	{
 		MOt=new Motorcycle(A_REG,TYPE_NRM,i+1,SN);
-		NormalMotorCycleA.enqueue(MOt,SN);
+		NormalMotorCycleA.enqueue(MOt,SN+5*i);
 	}
 	for(int i=0;i<MVA;i++)
 	{
 		MOt=new Motorcycle(A_REG,TYPE_VIP,i+1,SV);
-		FastMotorCycleA.enqueue(MOt,SV);
+		FastMotorCycleA.enqueue(MOt,SV+5*i);
 	}
 
 
 	for(int i=0;i<MFB;i++)
 	{
 		MOt=new Motorcycle(B_REG,TYPE_FROZ,i+1,SF);
-		FrozenMotorCycleB.enqueue(MOt,SF);
+		FrozenMotorCycleB.enqueue(MOt,SF+5*i);
 	}
 	for(int i=0;i<MNB;i++)
 	{
 		MOt=new Motorcycle(B_REG,TYPE_NRM,i+1,SN);
-		NormalMotorCycleB.enqueue(MOt,SN);
+		NormalMotorCycleB.enqueue(MOt,SN+5*i);
 	}
 	for(int i=0;i<MVB;i++)
 	{
 		MOt=new Motorcycle(B_REG,TYPE_VIP,i+1,SV);
-		FastMotorCycleB.enqueue(MOt,SV);
+		FastMotorCycleB.enqueue(MOt,SV+5*i);
 	}
 
 
 	for(int i=0;i<MFC;i++)
 	{
 		MOt=new Motorcycle(C_REG,TYPE_FROZ,i+1,SF);
-		FrozenMotorCycleC.enqueue(MOt,SF);
+		FrozenMotorCycleC.enqueue(MOt,SF+5*i);
 	}
 	for(int i=0;i<MNC;i++)
 	{
 		MOt=new Motorcycle(C_REG,TYPE_NRM,i+1,SN);
-		NormalMotorCycleC.enqueue(MOt,SN);
+		NormalMotorCycleC.enqueue(MOt,SN+5*i);
 	}
 	for(int i=0;i<MVC;i++)
 	{
 		MOt=new Motorcycle(C_REG,TYPE_VIP,i+1,SV);
-		FastMotorCycleC.enqueue(MOt,SV);
+		FastMotorCycleC.enqueue(MOt,SV+5*i);
 	}
 
 
 	for(int i=0;i<MFD;i++)
 	{
 		MOt=new Motorcycle(D_REG,TYPE_FROZ,i+1,SF);
-		FrozenMotorCycleD.enqueue(MOt,SF);
+		FrozenMotorCycleD.enqueue(MOt,SF+5*i);
 	}
 	for(int i=0;i<MND;i++)
 	{
 		MOt=new Motorcycle(D_REG,TYPE_NRM,i+1,SN);
-		NormalMotorCycleD.enqueue(MOt,SN);
+		NormalMotorCycleD.enqueue(MOt,SN+5*i);
 	}
 	for(int i=0;i<MVD;i++)
 	{
 		MOt=new Motorcycle(D_REG,TYPE_VIP,i+1,SV);
-		FastMotorCycleD.enqueue(MOt,SV);
+		FastMotorCycleD.enqueue(MOt,SV+5*i);
 	}
 	
 	int prom;
@@ -1056,6 +1056,7 @@ void Restaurant::Interactive()
 		returnMotorCycle(CurrentTimeStep);
 		pGUI->UpdateInterface();
 		}
+	Print(CurrentTimeStep);
 	deleteMotorC();
 	Output_File();
 	if (Mode!=MODE_SLNT)
@@ -1139,7 +1140,7 @@ void Restaurant::deleteMotorC(){
 void Restaurant::Output_File(){
 	Queue<Order*> Serv;
 	bool flag=true;
-	ofstream output("OUTPUT.txt",ios::out);
+	ofstream output("OUTPUT3.txt",ios::out);
 	Order * O,*p;
 	int AN=0,AF=0,AV=0,BN=0,BF=0,BV=0,CN=0,CF=0,CV=0,DN=0,DF=0,DV=0;
 	float SWA=0,SWB=0,SWC=0,SWD=0,SSA=0,SSB=0,SSC=0,SSD=0;
