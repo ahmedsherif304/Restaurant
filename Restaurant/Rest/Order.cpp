@@ -65,3 +65,7 @@ void Order::setWaitTime(int x){
 }
 int  Order::getServTime(){return ServTime;}
 int  Order::getWaitTime(){return WaitTime;}
+void Order::setFinishTime(int x){
+	FinishTime=x;
+}
+int  Order::getFinishTime(){return FinishTime;}

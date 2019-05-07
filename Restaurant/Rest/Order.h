@@ -14,7 +14,7 @@ protected:
 	                
 	double totalMoney;	//Total order money
 
-	int ArrTime, ServTime, WaitTime;	//arrival, service start, and finish times
+	int ArrTime, ServTime, WaitTime,FinishTime;	//arrival, service start, and finish times
 	
 	int Priority;
 	int AutoProm;
@@ -40,6 +40,8 @@ public:
 	void setWaitTime(int);
 	int getServTime();
 	int getWaitTime();
+	void setFinishTime(int);
+	int getFinishTime();
 	//
 	// TODO: Add More Member Functions As Needed
 	//
