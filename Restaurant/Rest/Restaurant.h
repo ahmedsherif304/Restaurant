@@ -69,6 +69,7 @@ public:
 	bool dequeueOrder(int,Order*&);
 	void CancelFromInActive(int id);
 	void assign(int);
+	void deleteMotorC();
 	void CancelFromOrders(int id);
 	Order* ReturnOrder(int i);
 };

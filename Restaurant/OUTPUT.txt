@@ -39,7 +39,7 @@ Region B:
 
 Region C:
 	Orders: 0 [Norm:0, Froz:0, VIP:0]
-	MotorC: 7  [Norm:4, Froz:2, VIP:1]
+	MotorC: 9  [Norm:4, Froz:2, VIP:3]
 	AVG Wait = -1.#IND, AVG Serve = -1.#IND
 
 Region D:

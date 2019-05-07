@@ -199,6 +199,10 @@ Restaurant::~Restaurant()
 	NormalMotorCycleB.clear();
 	NormalMotorCycleC.clear();
 	NormalMotorCycleD.clear();
+	OutMotorCycles.clear();
+	InActive.clear();
+	Orders.clear();
+	SaveFile.clear();
 	delete pGUI;
 }
 
@@ -1052,17 +1056,85 @@ void Restaurant::Interactive()
 		returnMotorCycle(CurrentTimeStep);
 		pGUI->UpdateInterface();
 		}
-		Output_File();
-		if (Mode!=MODE_SLNT)
-		{
-			Print(CurrentTimeStep);
-			Sleep(5000);
-			pGUI->PrintMessage("Done");
-			if(Mode==MODE_INTR)
-					pGUI->waitForClick();
-			else if(Mode==MODE_STEP)
-					Sleep(1000);
-		}
+	deleteMotorC();
+	Output_File();
+	if (Mode!=MODE_SLNT)
+	{
+		Print(CurrentTimeStep);
+		Sleep(5000);
+		pGUI->PrintMessage("Done");
+		if(Mode==MODE_INTR)
+				pGUI->waitForClick();
+		else if(Mode==MODE_STEP)
+				Sleep(1000);
+	}
+}
+void Restaurant::deleteMotorC(){
+	Motorcycle* mot;
+	while (!FastMotorCycleA.isEmpty())
+	{
+		FastMotorCycleA.dequeue(mot);
+		delete mot;
+	}
+	while (!FastMotorCycleB.isEmpty())
+	{
+		FastMotorCycleB.dequeue(mot);
+		delete mot;
+	}
+	while (!FastMotorCycleC.isEmpty())
+	{
+		FastMotorCycleC.dequeue(mot);
+		delete mot;
+	}
+	while (!FastMotorCycleD.isEmpty())
+	{
+		FastMotorCycleD.dequeue(mot);
+		delete mot;
+	}
+
+
+	while (!FrozenMotorCycleA.isEmpty())
+	{
+		FrozenMotorCycleA.dequeue(mot);
+		delete mot;
+	}
+	while (!FrozenMotorCycleB.isEmpty())
+	{
+		FrozenMotorCycleB.dequeue(mot);
+		delete mot;
+	}
+	while (!FrozenMotorCycleC.isEmpty())
+	{
+		FrozenMotorCycleC.dequeue(mot);
+		delete mot;
+	}
+	while (!FrozenMotorCycleD.isEmpty())
+	{
+		FrozenMotorCycleD.dequeue(mot);
+		delete mot;
+	}
+
+
+	while (!NormalMotorCycleA.isEmpty())
+	{
+		NormalMotorCycleA.dequeue(mot);
+		delete mot;
+	}
+	while (!NormalMotorCycleB.isEmpty())
+	{
+		NormalMotorCycleB.dequeue(mot);
+		delete mot;
+	}
+	while (!NormalMotorCycleC.isEmpty())
+	{
+		NormalMotorCycleC.dequeue(mot);
+		delete mot;
+	}
+	while (!NormalMotorCycleD.isEmpty())
+	{
+		NormalMotorCycleD.dequeue(mot);
+		delete mot;
+	}
 }
 void Restaurant::Output_File(){
 	Queue<Order*> Serv;
@@ -1142,8 +1214,7 @@ void Restaurant::Output_File(){
 			   }
 	default: {break;}
 	}
-
-
+	delete O;
 	while(!Serv.isEmpty())
 		{
 			Serv.dequeue(O);
